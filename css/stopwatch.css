@@ -1,0 +1,81 @@
+#stopwatch-box {
+  width: fit-content;
+  margin: 20px auto;
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: blanchedalmond;
+}
+
+#stopwatch-display {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin: 0 auto;
+  width: fit-content;
+  text-align: center;
+  padding: 25px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  font-size: 40px;
+  border-bottom: 1px solid black;
+
+  span {
+    width: fit-content;
+    border-radius: 4px;
+    font-size: 40px;
+  }
+}
+
+#stopwatch-btn-box {
+  display: flex;
+  flex: auto;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  gap: 5px;
+  padding: 5px 5px 10px;
+  margin: 10px;
+  padding-inline: 25px;
+
+  .btn {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    border: 2px solid black;
+    color: black;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 5px;
+  }
+  .btn:hover {
+    opacity: 60%;
+  }
+  .btn:active {
+    opacity: 80%;
+    box-shadow: 0 3px;
+    transform: translateY(2px);
+  }
+
+  #stopwatch-btn-play {
+    border: 2px solid darkred;
+    background-color: red;
+    color: pink;
+  }
+  #stopwatch-btn-pause {
+    border: 2px solid darkblue;
+    background-color: blue;
+    color: skyblue;
+  }
+  #stopwatch-btn-reset {
+    border: 2px solid gray;
+    background-color: darkgray;
+    color: lightgray;
+  }
+}
