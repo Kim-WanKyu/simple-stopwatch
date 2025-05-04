@@ -17,44 +17,43 @@ btnResetStopwatch.addEventListener("click", resetStopwatch);
 btnPauseStopwatch.classList.add("hidden");
 btnResetStopwatch.classList.add("disabled");
 
-let stopwatchIntervalId = null;
+const stopwatchInfo = { intervalId: null, startTime: 0, gap: 0 };
 
 function playStopwatch() {
-  if (stopwatchIntervalId === null) {
-    stopwatchIntervalId = setInterval(plusCounter, 10);
+  if (stopwatchInfo.intervalId === null) {
+    stopwatchInfo.startTime = Date.now();
+    stopwatchInfo.intervalId = setInterval(calcStopwatch, 10);
     btnPlayStopwatch.classList.add("hidden");
     btnPauseStopwatch.classList.remove("hidden");
     btnResetStopwatch.classList.remove("disabled");
   }
 }
 function pauseStopwatch() {
-  if (stopwatchIntervalId !== null) {
-    clearInterval(stopwatchIntervalId);
-    stopwatchIntervalId = null;
+  if (stopwatchInfo.intervalId !== null) {
+    clearInterval(stopwatchInfo.intervalId);
+    stopwatchInfo.gap += Date.now() - stopwatchInfo.startTime;
+    stopwatchInfo.intervalId = null;
     btnPlayStopwatch.classList.remove("hidden");
     btnPauseStopwatch.classList.add("hidden");
   }
 }
 function resetStopwatch() {
   pauseStopwatch();
+  stopwatchInfo.startTime = 0;
+  stopwatchInfo.gap = 0;
   btnResetStopwatch.classList.add("disabled");
   stopwatchMinDisplay.textContent = "00";
   stopwatchSecDisplay.textContent = "00";
   stopwatchMSecDisplay.textContent = "00";
 }
 
-function plusCounter() {
-  let msec = Number.parseInt(stopwatchMSecDisplay.textContent) + 1;
-  let min = Number.parseInt(stopwatchMinDisplay.textContent);
-  let sec = Number.parseInt(stopwatchSecDisplay.textContent);
-  if (msec >= 100) {
-    msec = 0;
-    sec += 1;
-  }
-  if (sec >= 60) {
-    sec = 0;
-    min += 1;
-  }
+function calcStopwatch() {
+  const elapsedTime = Date.now() - stopwatchInfo.startTime + stopwatchInfo.gap;
+
+  const msec = parseInt((elapsedTime % 1000) / 10);
+  const sec = parseInt((elapsedTime / 1000) % 60);
+  const min = parseInt((elapsedTime / (1000 * 60)) % 60);
+
   stopwatchMSecDisplay.textContent = msec.toString().padStart(2, "0");
   stopwatchSecDisplay.textContent = sec.toString().padStart(2, "0");
   stopwatchMinDisplay.textContent = min.toString().padStart(2, "0");
